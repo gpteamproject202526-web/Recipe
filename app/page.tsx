@@ -163,7 +163,7 @@ export default function Home() {
         {/* Cuisine Section */}
         <div className="mb-6 flex flex-col items-center">
           <h2 className="font-semibold text-lg mb-3 text-white text-center">
-            Cuisine Preference
+            Cuisine Preference:
           </h2>
 
           <div className="flex flex-wrap justify-center gap-3 mb-6">
@@ -203,7 +203,7 @@ export default function Home() {
         <textarea
           value={ingredients}
           onChange={(e) => setIngredients(e.target.value)}
-          placeholder="Add the you have ingredients at home"
+          placeholder="Add ingredients you have at home"
           className="w-full p-3 rounded-xl border border-white/30 bg-black/50 text-white mb-6 placeholder-gray-300"
         />
 
@@ -359,9 +359,7 @@ export default function Home() {
           Users should be cautious when relying on information provided by this chatbot 
           and verify important details through other sources to ensure accuracy.
         </p>
-        <p className="text-xs text-white-300 text-center mb-0">
-          For queries or to report errors contact gpteamproject2025.26@gmail.com.
-        </p>
+        
 
         {/* Old Output */}
         {recipe && (
