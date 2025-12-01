@@ -22,6 +22,7 @@ IMPORTANT RULES:
 - You may include emojis and emoticons.
 - Also explain in one sentence how this dish is of selected cuisine.
 - Always keep the food healthy and for a person with type 2 diabetes
+- If you use any ingredient more than 500 grams use kilograms
 
 RECIPE DETAILS:
 Diet: ${diet}

@@ -13,7 +13,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Mindful Bites",
+  title: "Mindful Bite",
   description: "AI Recipe Generator",
 };
 

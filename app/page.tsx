@@ -14,16 +14,15 @@ export default function Home() {
   /* TAG SYSTEM */
   const tagCategories = {
     Cost: ["Cost Effective", "Medium Budget", "Premium"],
-    Time: ["Under 15 mins", "Under 30 mins", "Under an hour", "Over an Hour"],
-    Taste: ["Sweet", "Sour", "Spicy",],
+    Time: ["Under 15 mins", "Under 30 mins", "Under an hour", "Over an hour"],
+    Taste: ["Sweet", "Sour", "Spicy"],
     Skill: ["Beginner", "Intermediate", "Expert"],
     Knowledge: ["Nutrition Tips", "Ingredients Health Rating"],
     Motivation: ["Visually Appealing", "Aromatic"],
     "Support from Family": ["Family Friendly", "Kid Friendly"],
     "Support from Peers": ["Peer Friendly", "Healthy Party Food"],
-    Accessibility: ["Easy Cooking Steps", "Simple Tools"],  
-    
-  };
+    Accessibility: ["Easy Cooking Steps", "Simple Tools"],
+  } as const;
 
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
   const [openCategory, setOpenCategory] = useState<string | null>(null);
@@ -39,7 +38,7 @@ export default function Home() {
       setOpenCategory(null);
     }, 200);
   };
-  
+
   const backgrounds = ["/bg1.jpg", "/bg2.jpg", "/bg3.jpg"];
   const [background, setBackground] = useState<string>("");
 
@@ -48,19 +47,18 @@ export default function Home() {
     setBackground(random);
   }, []);
 
-
   const [loading, setLoading] = useState(false);
   const [recipe, setRecipe] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
 
   const validate = () => {
-    if (!diet) return "Please select Veg or Non-Veg.";
-    if (!cuisine) return "Please select or type a Cuisine.";
-    if (!healthy) return "Please Select Non-Diabetic Meal/Snack";
-    if (!mealtype) return "Please select Breakfast, Lunch, Snack or Dinner.";
-    if (!ingredients.trim()) return "Please enter the ingredients.";
-    if (!people || people < 1) return "Please enter a valid number of people.";
-    if (selectedTags.length === 0) return "Please add at least one tag.";
+    if (!diet) return "Please select Vegetarian or Non‑Vegetarian.";
+    if (!cuisine) return "Please select or type a cuisine.";
+    if (!healthy) return "Please select that you'd like a non‑diabetic (diabetes‑friendly) option.";
+    if (!mealtype) return "Please select Breakfast, Lunch, Snack, or Dinner.";
+    if (!ingredients.trim()) return "Please add the ingredients you have at home.";
+    if (!people || people < 1) return "Please enter a valid number of people (at least 1).";
+    if (selectedTags.length === 0) return "Please add at least one tag to customize your recipe.";
     return "";
   };
 
@@ -69,121 +67,124 @@ export default function Home() {
       className="min-h-screen w-full bg-cover bg-center flex justify-center items-center p-6"
       style={{ backgroundImage: `url(${background})` }}
     >
-    {/* DEMO BUTTON (top-left) */}
-  <button
-    onClick={() => setShowDemo(true)}
-    className="fixed top-4 left-4 px-4 py-2 bg-purple-600 hover:bg-purple-700 text-white rounded-xl shadow-lg z-50"
-  >
-  How it Works
-</button>
+      {/* DEMO BUTTON */}
+      <button
+        onClick={() => setShowDemo(true)}
+        aria-label="Open demo video"
+        className="fixed top-4 left-4 px-4 py-2 bg-purple-600 hover:bg-purple-700 text-white rounded-xl shadow-lg z-50"
+      >
+        How It Works
+      </button>
 
+      {/* MAIN CARD */}
       <div className="backdrop-blur-xl bg-black/40 shadow-2xl rounded-2xl p-10 w-full max-w-3xl border border-white/20">
+        {/* Logo */}
+        <div className="flex flex-col items-center text-center mb-4">
+          <img
+            src="/logo.jpeg"
+            alt="Mindful Bite main logo"
+            className="w-full max-w-[600px] h-auto rounded-xl object-contain border border-white/30 shadow-lg"
+          />
+        </div>
 
- 
-  {/* Logo */}
-<div className="w-full flex justify-center mb-6">
-  <img
-    src="/logo.jpeg"  // replace with your file name
-    alt="logo"
-    className="w-full max-w-[600px] h-auto rounded-xl object-contain border border-white/30 shadow-lg"
-  />
-</div>
+        {/* HEADER */}
+        <div className="flex flex-col items-center mb-6">
+          <div className="flex items-center gap-4 mb-3">
+            <img
+              src="/newlogo.jpeg"
+              alt="Mindful Bite square logo"
+              className="w-24 h-24 sm:w-32 sm:h-32 md:w-36 md:h-36 object-cover rounded-xl border border-white/30 shadow-lg"
+            />
 
+            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold text-white tracking-wide text-center">
+              Mindful Bite
+            </h1>
+          </div>
 
-        <h2 className="text-2xl font-bold text-white mb-1 text-center"> IGCSE Grade 10 - Global Perspective Team Project</h2>
-        <h2 className="text-1xl font-bold text-white mb-6 text-center">
-          This is a prototype used for testing, not for public use.
-        </h2>
+          <p className="text-xl sm:text-2xl text-gray-200 font-semibold text-center mb-2 tracking-wide">
+            Personalized Recipe Generator
+          </p>
 
-        {/* BUTTONS CENTERED */}
+          <p className="text-lg sm:text-lg italic text-500 max-w-3xl leading-relaxed mt-3 text-center font-bold">
+            With A Careful Hand, A Meal Well Planned, Serve Yourself the Safest Bite in the Land
+          </p>
+            <p className="text-lg sm:text-lg text-300 text-center max-w-prose leading-relaxed">
+            IGCSE Grade 10 — Global Perspectives Team Project
+          </p>
+
+          <p className="text-lg text-400 text-center mt-2">
+           This is a prototype used for testing, not for public use.
+          </p>
+        </div>
+
+        {/* ACTIONS */}
         <div className="flex flex-col items-center gap-5 mb-6">
-
-          {/* Healthy Toggle */}
-          <div className="flex gap-3 mb-0.1">
+          <div className="flex gap-3">
             <button
               onClick={() => setHealthy(!healthy)}
+              aria-pressed={healthy}
               className={`px-4 py-2 rounded-xl border ${
-                healthy
-                  ? "bg-blue-500 text-white"
-                  : "bg-black/60 border-white/30 text-white"
+                healthy ? "bg-blue-500 text-white" : "bg-black/60 border-white/30 text-white"
               }`}
             >
-              Make a Non-Diabetic Meal/Snack
+              {healthy ? "Make a Non-Diabetic Meal/Snack" : "Make a Non-Diabetic Meal/Snack"}
             </button>
           </div>
 
-          {/* Diet Buttons */}
-          <div className="flex gap-3 mb-0.1">
+          <div className="flex gap-3">
             <button
               onClick={() => setDiet("veg")}
               className={`px-4 py-2 rounded-xl border ${
-                diet === "veg"
-                  ? "bg-green-500 text-white"
-                  : "bg-black/60 border-white/30 text-white"
+                diet === "veg" ? "bg-green-500 text-white" : "bg-black/60 border-white/30 text-white"
               }`}
             >
-              Veg
+              Vegetarian
             </button>
 
             <button
               onClick={() => setDiet("nonveg")}
               className={`px-4 py-2 rounded-xl border ${
-                diet === "nonveg"
-                  ? "bg-red-500 text-white"
-                  : "bg-black/60 border-white/30 text-white"
+                diet === "nonveg" ? "bg-red-500 text-white" : "bg-black/60 border-white/30 text-white"
               }`}
             >
-              Non-Veg
+              Non‑Vegetarian
             </button>
           </div>
 
-          {/* Meal Type */}
-          <h2 className="font-semibold text-lg text-white mb-0.1">
-            Meal Type
-          </h2>
+          <h2 className="font-semibold text-lg text-white">Meal Type</h2>
 
-          <div className="flex flex-wrap justify-center gap-3 w-full mb-0.1">
-            {["Breakfast", "Lunch", "Snack", "Dinner"].map((mt) => (
+          <div className="flex flex-wrap justify-center gap-3 w-full">
+            {['Breakfast', 'Lunch', 'Snack', 'Dinner'].map((mt) => (
               <button
                 key={mt}
                 onClick={() => setMealtype(mt)}
                 className={`px-4 py-2 rounded-xl border ${
-                  mealtype === mt
-                    ? "bg-blue-500 text-white"
-                    : "bg-black/60 border-white/30 text-white"
+                  mealtype === mt ? "bg-blue-500 text-white" : "bg-black/60 border-white/30 text-white"
                 }`}
               >
                 {mt}
               </button>
             ))}
           </div>
-
         </div>
 
-        {/* Cuisine Section */}
+        {/* CUISINE */}
         <div className="mb-6 flex flex-col items-center">
-          <h2 className="font-semibold text-lg mb-3 text-white text-center">
-            Cuisine Preference:
-          </h2>
-
+          <h3 className="font-semibold text-lg mb-3 text-white text-center">Cuisine Preference</h3>
           <div className="flex flex-wrap justify-center gap-3 mb-6">
             <button
-              onClick={() => setCuisine("South Indian")}
+              onClick={() => setCuisine('South Indian')}
               className={`px-4 py-2 rounded-xl border ${
-                cuisine === "South Indian"
-                  ? "bg-blue-500 text-white"
-                  : "bg-black/60 border-white/30 text-white"
+                cuisine === 'South Indian' ? "bg-blue-500 text-white" : "bg-black/60 border-white/30 text-white"
               }`}
             >
               South Indian
             </button>
 
             <button
-              onClick={() => setCuisine("North Indian")}
+              onClick={() => setCuisine('North Indian')}
               className={`px-4 py-2 rounded-xl border ${
-                cuisine === "North Indian"
-                  ? "bg-blue-500 text-white"
-                  : "bg-black/60 border-white/30 text-white"
+                cuisine === 'North Indian' ? "bg-blue-500 text-white" : "bg-black/60 border-white/30 text-white"
               }`}
             >
               North Indian
@@ -191,6 +192,7 @@ export default function Home() {
 
             <input
               type="text"
+              aria-label="Custom cuisine"
               placeholder="Type a different cuisine"
               value={cuisine}
               onChange={(e) => setCuisine(e.target.value)}
@@ -199,106 +201,89 @@ export default function Home() {
           </div>
         </div>
 
-        {/* Ingredients */}
+        {/* INGREDIENTS */}
         <textarea
           value={ingredients}
           onChange={(e) => setIngredients(e.target.value)}
-          placeholder="Add ingredients you have at home"
+          placeholder="List the ingredients you have at home"
           className="w-full p-3 rounded-xl border border-white/30 bg-black/50 text-white mb-6 placeholder-gray-300"
+          aria-label="Ingredients list"
         />
 
-        {/* People */}
+        {/* PEOPLE */}
         <input
           type="number"
           value={people}
-          onChange={(e) => {
-            const val = e.target.value;
-            setPeople(val === "" ? "" : Number(val));
-          }}
+          onChange={(e) => setPeople(e.target.value === "" ? "" : Number(e.target.value))}
           className="w-full p-3 rounded-xl border border-white/30 bg-black/50 text-white mb-6"
           min={1}
-          placeholder="Enter number of people"
+          placeholder="Number of people"
+          aria-label="Number of people"
         />
 
-        {/* Selected Tags */}
+        {/* TAGS DISPLAY */}
         <div className="mb-6 p-4 rounded-xl bg-black/80 border border-white/30 min-h-[70px] flex flex-wrap gap-2 text-white">
           {selectedTags.length === 0 && (
-            <span className="text-gray-400"> Choose tags from below to personalize your recipe.</span>
+            <span className="text-gray-400">Choose tags below to personalize the recipe.</span>
           )}
-
           {selectedTags.map((tag) => (
-            <span
+            <button
               key={tag}
+              onClick={() => setSelectedTags(selectedTags.filter((t) => t !== tag))}
               className="px-3 py-1 bg-purple-600 text-white rounded-xl cursor-pointer hover:bg-red-500"
-              onClick={() =>
-                setSelectedTags(selectedTags.filter((t) => t !== tag))
-              }
+              aria-label={`Remove tag ${tag}`}
             >
               {tag} ✖
-            </span>
+            </button>
           ))}
         </div>
 
-{/* Tag Dropdown Grid */}
-<div className="grid grid-cols-2 sm:grid-cols-3 gap-4 mb-6 w-full">
-  {Object.entries(tagCategories).map(([category, options], index, arr) => (
-    <div
-      key={category}
-      className={`relative ${
-        index === arr.length - 1
-          ? "col-span-2 flex justify-center sm:col-span-1"
-          : ""
-      }`}
-      onMouseEnter={() => handleHover(category)}
-      onMouseLeave={handleLeave}
-    >
-      <div className="px-4 py-2 bg-black/60 text-white rounded-xl border border-white/20 cursor-pointer hover:bg-black/80 text-center w-full flex justify-center break-words whitespace-normal">
-        {category}
-      </div>
+        {/* TAG GRID */}
+        <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 mb-6 w-full">
+          {Object.entries(tagCategories).map(([category, options], index, arr) => (
+            <div
+              key={category}
+              className={`relative ${index === arr.length - 1 ? "col-span-2 flex justify-center sm:col-span-1" : ""}`}
+              onMouseEnter={() => handleHover(category)}
+              onMouseLeave={handleLeave}
+            >
+              <div className="px-4 py-2 bg-black/60 text-white rounded-xl border border-white/20 cursor-pointer hover:bg-black/80 text-center w-full break-words">
+                {category}
+              </div>
 
-      {openCategory === category && (
-        <div className="absolute left-0 top-full mt-2 bg-black/90 border border-white/20 rounded-xl p-2 z-50 w-full break-words">
-          {options
-            .filter((opt) => !selectedTags.includes(`${category}: ${opt}`))
-            .map((opt) => (
-              <button
-                key={opt}
-                onClick={() => {
-                  setSelectedTags([...selectedTags, `${category}: ${opt}`]);
-                  setOpenCategory(null);
-                }}
-                className="block w-full px-3 py-2 text-white hover:bg-purple-600 border-b border-white/20 last:border-b-0 flex justify-center text-center break-words whitespace-normal"
-              >
-                {opt}
-              </button>
-            ))}
+              {openCategory === category && (
+                <div className="absolute left-0 top-full mt-2 bg-black/90 border border-white/20 rounded-xl p-2 z-50 w-full">
+                  {options
+                    .filter((opt) => !selectedTags.includes(`${category}: ${opt}`))
+                    .map((opt) => (
+                      <button
+                        key={opt}
+                        onClick={() => {
+                          setSelectedTags([...selectedTags, `${category}: ${opt}`]);
+                          setOpenCategory(null);
+                        }}
+                        className="block w-full px-3 py-2 text-white hover:bg-purple-600 border-b border-white/20 last:border-b-0 text-left"
+                      >
+                        {opt}
+                      </button>
+                    ))}
 
-          {options.filter(
-            (opt) => !selectedTags.includes(`${category}: ${opt}`)
-          ).length === 0 && (
-            <p className="text-gray-400 text-sm px-2 py-1">
-              You have selected all available tags.
-            </p>
-          )}
+                  {options.filter((opt) => !selectedTags.includes(`${category}: ${opt}`)).length === 0 && (
+                    <p className="text-gray-400 text-lg px-2 py-1">You have selected all available tags.</p>
+                  )}
+                </div>
+              )}
+            </div>
+          ))}
         </div>
-      )}
-    </div>
-  ))}
-</div>
 
+        {errorMessage && <p className="text-red-400 mb-6 text-center">{errorMessage}</p>}
 
-        {errorMessage && (
-          <p className="text-red-400 mb-6 text-center">{errorMessage}</p>
-        )}
-
-        {/* Generate Button */}
+        {/* GENERATE BUTTON */}
         <button
           onClick={async () => {
             const err = validate();
-            if (err) {
-              setErrorMessage(err);
-              return;
-            }
+            if (err) return setErrorMessage(err);
 
             setErrorMessage("");
             setLoading(true);
@@ -322,8 +307,7 @@ export default function Home() {
               const data = await res.json();
               setRecipe(data.recipe);
               setShowModal(true);
-            } catch (error) {
-              console.error("Error:", error);
+            } catch {
               setRecipe("Error generating recipe.");
             }
 
@@ -331,37 +315,26 @@ export default function Home() {
           }}
           className="w-full py-3 bg-purple-600 hover:bg-purple-700 text-white font-semibold rounded-xl mb-6"
         >
-          {loading ? "Cooking your Recipe..." : "Generate Recipe"}
+          {loading ? "Generating your recipe..." : "Generate Recipe"}
         </button>
 
         {loading && (
-  <div className="w-full flex justify-center mt-4 mb-4">
-    <div className="boxes">
-      <div className="box">
-        <div></div><div></div><div></div><div></div>
-      </div>
-      <div className="box">
-        <div></div><div></div><div></div><div></div>
-      </div>
-      <div className="box">
-        <div></div><div></div><div></div><div></div>
-      </div>
-      <div className="box">
-        <div></div><div></div><div></div><div></div>
-      </div>
-    </div>
-  </div>
-)}
+          <div className="w-full flex justify-center mt-4 mb-4">
+            <div className="boxes">
+              <div className="box"><div></div><div></div><div></div><div></div></div>
+              <div className="box"><div></div><div></div><div></div><div></div></div>
+              <div className="box"><div></div><div></div><div></div><div></div></div>
+              <div className="box"><div></div><div></div><div></div><div></div></div>
+            </div>
+          </div>
+        )}
 
-
-        {/* Caution */}
-        <p className="text-xs text-red-300 text-center mb-0">
-          Users should be cautious when relying on information provided by this chatbot 
-          and verify important details through other sources to ensure accuracy.
+      <p className="text-sm text-red-300 text-center mb-0">
+          
+Users should be cautious when relying on information provided by this chatbot and verify important details through other sources to ensure accuracy.
         </p>
-        
 
-        {/* Old Output */}
+        {/* OUTPUT */}
         {recipe && (
           <div className="mt-6 p-4 bg-black/40 backdrop-blur-xl rounded-xl text-white whitespace-pre-wrap">
             {recipe}
@@ -369,51 +342,36 @@ export default function Home() {
         )}
       </div>
 
-      {/* Modal */}
+      {/* RECIPE MODAL */}
       {showModal && (
         <div className="fixed inset-0 bg-black/80 backdrop-blur-xl flex justify-center items-center z-50 p-6">
           <div className="bg-black/50 border border-white/20 rounded-2xl p-6 max-w-3xl w-full max-h-[90vh] overflow-y-auto text-white">
-
             <button
               onClick={() => setShowModal(false)}
               className="mb-6 px-4 py-2 bg-red-500 hover:bg-red-600 rounded-xl text-white"
             >
               Back
             </button>
-
-            <div className="whitespace-pre-wrap">
-              {recipe}
-            </div>
-            
+            <div className="whitespace-pre-wrap">{recipe}</div>
           </div>
         </div>
       )}
+
       {/* DEMO POPUP */}
-{showDemo && (
-  <div className="fixed inset-0 bg-black/80 backdrop-blur-xl flex justify-center items-center z-50 p-6">
-    <div className="bg-black/50 border border-white/20 rounded-2xl p-6 max-w-2xl w-full text-white">
-
-      <button
-        onClick={() => setShowDemo(false)}
-        className="mb-4 px-4 py-2 bg-red-500 hover:bg-red-600 rounded-xl text-white"
-      >
-        Close
-      </button>
-
-      <h2 className="text-2xl font-bold mb-4 text-center">How It Works</h2>
-
-      <video
-        src="/demo.mp4"
-        autoPlay
-        loop
-        controls
-        className="w-full rounded-xl border border-white/30"
-      />
-
-    </div>
-  </div>
-)}
-    
+      {showDemo && (
+        <div className="fixed inset-0 bg-black/80 backdrop-blur-xl flex justify-center items-center z-50 p-6">
+          <div className="bg-black/50 border border-white/20 rounded-2xl p-6 max-w-2xl w-full text-white">
+            <button
+              onClick={() => setShowDemo(false)}
+              className="mb-4 px-4 py-2 bg-red-500 hover:bg-red-600 rounded-xl text-white"
+            >
+              Close
+            </button>
+            <h2 className="text-2xl font-bold mb-4 text-center">How It Works</h2>
+            <video src="/demo.mp4" autoPlay loop controls className="w-full rounded-xl border border-white/30" />
+          </div>
+        </div>
+      )}
     </div>
   );
 }
