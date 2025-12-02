@@ -10,10 +10,12 @@ export default function Home() {
   const [people, setPeople] = useState<number | "">("");
   const [showModal, setShowModal] = useState(false);
   const [showDemo, setShowDemo] = useState(false);
+  const [modalBackground, setModalBackground] = useState<string>("");
+
 
   /* TAG SYSTEM */
   const tagCategories = {
-    Cost: ["Cost Effective", "Medium Budget", "Premium"],
+    Cost: ["Low Budget", "Medium Budget", "Premium Budget"],
     Time: ["Under 15 mins", "Under 30 mins", "Under an hour", "Over an hour"],
     Taste: ["Sweet", "Sour", "Spicy"],
     Skill: ["Beginner", "Intermediate", "Expert"],
@@ -68,13 +70,16 @@ export default function Home() {
       style={{ backgroundImage: `url(${background})` }}
     >
       {/* DEMO BUTTON */}
-      <button
-        onClick={() => setShowDemo(true)}
-        aria-label="Open demo video"
-        className="fixed top-4 left-4 px-4 py-2 bg-purple-600 hover:bg-purple-700 text-white rounded-xl shadow-lg z-50"
+     <button
+      onClick={() => setShowDemo(true)}
+      aria-label="Open demo video"
+      className={`fixed top-4 left-4 px-4 py-2 bg-purple-600 hover:bg-purple-700 text-white rounded-xl shadow-lg z-50 
+      ${!healthy ? "jiggle" : ""}`}
       >
         How It Works
-      </button>
+    </button>
+
+
 
       {/* MAIN CARD */}
       <div className="backdrop-blur-xl bg-black/40 shadow-2xl rounded-2xl p-10 w-full max-w-3xl border border-white/20">
@@ -306,6 +311,11 @@ export default function Home() {
 
               const data = await res.json();
               setRecipe(data.recipe);
+              // pick different background for modal
+const bgOptions = backgrounds.filter((bg) => bg !== background);
+const chosen = bgOptions[Math.floor(Math.random() * bgOptions.length)];
+setModalBackground(chosen);
+
               setShowModal(true);
             } catch {
               setRecipe("Error generating recipe.");
@@ -344,7 +354,19 @@ Users should be cautious when relying on information provided by this chatbot an
 
       {/* RECIPE MODAL */}
       {showModal && (
-        <div className="fixed inset-0 bg-black/80 backdrop-blur-xl flex justify-center items-center z-50 p-6">
+  <div
+    className="fixed inset-0 bg-black/60 backdrop-blur-xl flex justify-center items-center z-50 p-6 bg-cover bg-center"
+    style={{ backgroundImage: `url(${modalBackground})` }}
+  >
+    <button
+  onClick={() => window.open("https://forms.gle/3X7hPWFV4hLQcY7K9", "_blank")}
+  aria-label="Give feedback"
+  className="fixed top-4 left-4 px-4 py-2 bg-purple-600 hover:bg-purple-700 text-white rounded-xl shadow-lg z-[9999] jiggle"
+>
+  Give Feedback
+</button>
+
+
           <div className="bg-black/50 border border-white/20 rounded-2xl p-6 max-w-3xl w-full max-h-[90vh] overflow-y-auto text-white">
             <button
               onClick={() => setShowModal(false)}
