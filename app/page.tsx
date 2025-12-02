@@ -113,13 +113,16 @@ export default function Home() {
           <p className="text-lg sm:text-lg italic text-500 max-w-3xl leading-relaxed mt-3 text-center font-bold">
             With A Careful Hand, A Meal Well Planned, Serve Yourself the Safest Bite in the Land
           </p>
-            <p className="text-lg sm:text-lg text-300 text-center max-w-prose leading-relaxed">
+            <p className="text-lg sm:text-lg text-300 text-center max-w-prose leading-relaxed mb-4">
             IGCSE Grade 10 — Global Perspectives Team Project
           </p>
 
-          <p className="text-lg text-400 text-center mt-2">
-           This is a prototype used for testing, not for public use.
-          </p>
+          <div className="text-red-500 font text-center">
+⚠️THIS IS A PROTOTYPE USED FOR TESTING, NOT FOR PUBLIC USE.⚠️
+  <div className="mt-1 border-b-4 border-red-600 w-full"></div>
+</div>
+
+
         </div>
 
         {/* ACTIONS */}
