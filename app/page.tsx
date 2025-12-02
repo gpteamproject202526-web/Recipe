@@ -116,13 +116,9 @@ export default function Home() {
             <p className="text-lg sm:text-lg text-300 text-center max-w-prose leading-relaxed mb-4">
             IGCSE Grade 10 — Global Perspectives Team Project
           </p>
-
-          <div className="text-red-500 font text-center">
-⚠️THIS IS A PROTOTYPE USED FOR TESTING, NOT FOR PUBLIC USE.⚠️
-  <div className="mt-1 border-b-4 border-red-600 w-full"></div>
-</div>
-
-
+<p className="text-lg sm:text-lg text-300 text-center max-w-prose leading-relaxed mb-4 jiggle">
+  This is a prototype used for testing, not for public use.
+</p>      
         </div>
 
         {/* ACTIONS */}
@@ -260,20 +256,23 @@ export default function Home() {
               </div>
 
               {openCategory === category && (
-                <div className="absolute left-0 top-full mt-2 bg-black/90 border border-white/20 rounded-xl p-2 z-50 w-full">
+                <div className="absolute left-0 top-full mt-2 bg-blue-600 border border-blue-300 rounded-xl p-2 z-50 w-full shadow-xl">
+
                   {options
                     .filter((opt) => !selectedTags.includes(`${category}: ${opt}`))
                     .map((opt) => (
                       <button
-                        key={opt}
-                        onClick={() => {
-                          setSelectedTags([...selectedTags, `${category}: ${opt}`]);
-                          setOpenCategory(null);
-                        }}
-                        className="block w-full px-3 py-2 text-white hover:bg-purple-600 border-b border-white/20 last:border-b-0 text-left"
-                      >
-                        {opt}
-                      </button>
+  key={opt}
+  onClick={() => {
+    setSelectedTags([...selectedTags, `${category}: ${opt}`]);
+    setOpenCategory(null);
+  }}
+  className="block w-full px-3 py-2 text-white bg-blue-600 hover:bg-blue-700 border-b border-blue-300 last:border-b-0 text-left rounded-lg"
+>
+  <span className="font-bold">{opt}</span>
+</button>
+
+
                     ))}
 
                   {options.filter((opt) => !selectedTags.includes(`${category}: ${opt}`)).length === 0 && (
