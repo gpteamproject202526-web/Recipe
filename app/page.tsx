@@ -87,17 +87,19 @@ export default function Home() {
         <div className="flex flex-col items-center text-center mb-4">
           <img
             src="/logo.jpeg"
-            alt="Mindful Bite main logo"
-            className="w-full max-w-[600px] h-auto rounded-xl object-contain border border-white/30 shadow-lg"
+            alt="skl logo"
+            className="w-full max-w-[320px] sm:max-w-[410px] md:max-w-[500px] lg:max-w-[590px] h-auto rounded-xl object-contain border border-white/30 shadow-lg"
+
           />
         </div>
 
         {/* HEADER */}
         <div className="flex flex-col items-center mb-6">
-          <div className="flex items-center gap-4 mb-3">
+          <div className="flex items-center gap-4 mb-3 w-full justify-center max-w-[320px] sm:max-w-[410px] md:max-w-[500px] lg:max-w-[590px]">
+
             <img
               src="/newlogo.jpeg"
-              alt="Mindful Bite square logo"
+              alt="Mindful Bite logo"
               className="w-24 h-24 sm:w-32 sm:h-32 md:w-36 md:h-36 object-cover rounded-xl border border-white/30 shadow-lg"
             />
 
@@ -105,6 +107,12 @@ export default function Home() {
               Mindful Bite
             </h1>
           </div>
+          <p className="text-lg sm:text-lg text-300 text-center max-w-prose leading-relaxed mb-4">
+            IGCSE Grade 10 — Global Perspectives Team Project
+          </p>
+<p className="text-lg sm:text-lg text-300 text-center max-w-prose leading-relaxed mb-4 jiggle">
+  This is a prototype used for testing, not for public use.
+</p>
 
           <p className="text-xl sm:text-2xl text-gray-200 font-semibold text-center mb-2 tracking-wide">
             Personalized Recipe Generator
@@ -113,12 +121,7 @@ export default function Home() {
           <p className="text-lg sm:text-lg italic text-500 max-w-3xl leading-relaxed mt-3 text-center font-bold">
             With A Careful Hand, A Meal Well Planned, Serve Yourself the Safest Bite in the Land
           </p>
-            <p className="text-lg sm:text-lg text-300 text-center max-w-prose leading-relaxed mb-4">
-            IGCSE Grade 10 — Global Perspectives Team Project
-          </p>
-<p className="text-lg sm:text-lg text-300 text-center max-w-prose leading-relaxed mb-4 jiggle">
-  This is a prototype used for testing, not for public use.
-</p>      
+                  
         </div>
 
         {/* ACTIONS */}
@@ -209,7 +212,7 @@ export default function Home() {
         <textarea
           value={ingredients}
           onChange={(e) => setIngredients(e.target.value)}
-          placeholder="List the ingredients you have at home"
+          placeholder="List the ingredients you have at home/any other specifications"
           className="w-full p-3 rounded-xl border border-white/30 bg-black/50 text-white mb-6 placeholder-gray-300"
           aria-label="Ingredients list"
         />
@@ -256,8 +259,7 @@ export default function Home() {
               </div>
 
               {openCategory === category && (
-                <div className="absolute left-0 top-full mt-2 bg-blue-600 border border-blue-300 rounded-xl p-2 z-50 w-full shadow-xl">
-
+                <div className="absolute left-0 top-full mt-2 bg-blue-500 border border-blue-300 rounded-xl p-2 z-50 w-full shadow-xl">
                   {options
                     .filter((opt) => !selectedTags.includes(`${category}: ${opt}`))
                     .map((opt) => (
@@ -267,7 +269,7 @@ export default function Home() {
     setSelectedTags([...selectedTags, `${category}: ${opt}`]);
     setOpenCategory(null);
   }}
-  className="block w-full px-3 py-2 text-white bg-blue-600 hover:bg-blue-700 border-b border-blue-300 last:border-b-0 text-left rounded-lg"
+  className="block w-full px-3 py-2 text-white bg-blue-500 hover:bg-blue-600 border-b border-blue-300 last:border-b-0 text-left rounded-lg transition-colors duration-200"
 >
   <span className="font-bold">{opt}</span>
 </button>
@@ -363,7 +365,7 @@ Users should be cautious when relying on information provided by this chatbot an
     <button
   onClick={() => window.open("https://forms.gle/3X7hPWFV4hLQcY7K9", "_blank")}
   aria-label="Give feedback"
-  className="fixed top-4 left-4 px-4 py-2 bg-purple-600 hover:bg-purple-700 text-white rounded-xl shadow-lg z-[9999] jiggle"
+  className="fixed top-4 right-4 px-4 py-2 bg-purple-600 hover:bg-purple-700 text-white rounded-xl shadow-lg z-[9999] jiggle"
 >
   Give Feedback
 </button>
