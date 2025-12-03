@@ -85,7 +85,7 @@ body {
   /* Loading */ 
 .boxes {
   --size: 15px;
-  --duration: 800ms;
+  --duration: 700ms;
   height: calc(var(--size) * 2);
   width: calc(var(--size) * 3);
   position: relative;
