@@ -23,6 +23,8 @@ IMPORTANT RULES:
 - Also explain in one sentence how this dish is of selected cuisine.
 - Always keep the food healthy and for a person with type 2 diabetes
 - If you use any ingredient more than 500 grams use kilograms
+- Based on certain tags you may also add stuff like plating techniques, how to imporeve appeal and other similar things.
+- Ensure you fulfill all the tags to the best of your ability
 
 RECIPE DETAILS:
 Diet: ${diet}
