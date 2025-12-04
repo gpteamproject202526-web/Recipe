@@ -111,7 +111,7 @@ export default function Home() {
             IGCSE Grade 10 — Global Perspectives Team Project
           </p>
 <p className="text-lg sm:text-lg text-300 text-center max-w-prose leading-relaxed mb-4 jiggle">
-  This is a prototype used for testing, not for public use.
+  This is a prototype used for testing, not for public use. Not for medical purposes. 
 </p>
 
           <p className="text-xl sm:text-2xl text-gray-200 font-semibold text-center mb-2 tracking-wide">
