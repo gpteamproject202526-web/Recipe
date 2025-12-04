@@ -11,7 +11,8 @@ export default function Home() {
   const [showModal, setShowModal] = useState(false);
   const [showDemo, setShowDemo] = useState(false);
   const [modalBackground, setModalBackground] = useState<string>("");
-
+  const [showDownloadPopup, setShowDownloadPopup] = useState(false);
+  const [showDownloadButton, setShowDownloadButton] = useState(false);
 
   /* TAG SYSTEM */
   const tagCategories = {
@@ -48,6 +49,18 @@ export default function Home() {
     const random = backgrounds[Math.floor(Math.random() * backgrounds.length)];
     setBackground(random);
   }, []);
+  useEffect(() => {
+  const userAgent = navigator.userAgent || navigator.vendor || (window as any).opera;
+
+  const isMobile = /android|iphone|ipad|ipod/i.test(userAgent);
+  const isInsideApp = /wv|android.*version\/[\d.]+.*chrome/i.test(userAgent);
+
+  // ✅ Show on laptop ✅ Show on mobile browser ❌ Hide inside APK app
+  if (!isInsideApp) {
+    setShowDownloadButton(true);
+  }
+}, []);
+
 
   const [loading, setLoading] = useState(false);
   const [recipe, setRecipe] = useState("");
@@ -78,9 +91,14 @@ export default function Home() {
       >
         How It Works
     </button>
-
-
-
+    {showDownloadButton && (
+  <button
+    onClick={() => setShowDownloadPopup(true)}
+    className="fixed bottom-4 left-4 px-4 py-2 bg-purple-600 hover:bg-purple-700 text-white rounded-xl shadow-lg z-50"
+  >
+    Download the App
+  </button>
+)}
       {/* MAIN CARD */}
       <div className="backdrop-blur-xl bg-black/40 shadow-2xl rounded-2xl p-10 w-full max-w-3xl border border-white/20">
         {/* Logo */}
@@ -391,13 +409,40 @@ Users should be cautious when relying on information provided by this chatbot an
               onClick={() => setShowDemo(false)}
               className="mb-4 px-4 py-2 bg-red-500 hover:bg-red-600 rounded-xl text-white"
             >
-              Close
+              Back
             </button>
             <h2 className="text-2xl font-bold mb-4 text-center">How It Works</h2>
             <video src="/demo.mp4" autoPlay loop controls className="w-full rounded-xl border border-white/30" />
           </div>
         </div>
       )}
+      {showDownloadPopup && (
+  <div className="fixed inset-0 bg-black/80 backdrop-blur-xl flex justify-center items-center z-50 p-6">
+    <div className="bg-black/50 border border-white/20 rounded-2xl p-6 max-w-xl w-full text-white">
+      
+      <button
+        onClick={() => setShowDownloadPopup(false)}
+        className="mb-4 px-4 py-2 bg-red-500 hover:bg-red-600 rounded-xl text-white"
+      >
+        Back
+      </button>
+
+      <a
+        href="/MindfulBite.apk"   // ✅ Put your APK inside /public folder
+        download
+        className="block w-full text-center py-3 bg-green-600 hover:bg-green-700 rounded-xl font-semibold mb-4"
+      >
+        Download for Android (APK)
+      </a>
+
+
+      <p className="text-center text-gray-300">
+        Download the Mindful Bite Android app for the best experience. Coming soon on IOS and Windows
+      </p>
+    </div>
+  </div>
+)}
+
     </div>
   );
 }
