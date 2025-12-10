@@ -111,7 +111,7 @@ export default function Home() {
       className={`fixed top-4 left-4 px-4 py-2 bg-purple-600 hover:bg-purple-700 text-white rounded-xl shadow-lg z-50 
       ${!healthy ? "jiggle" : ""}`}
       >
-        How it Works
+        How It Works
     </button>
   <button
   className="fixed top-4 right-4 px-4 py-2 bg-purple-600 hover:bg-purple-700 text-white rounded-xl shadow-lg z-50"
