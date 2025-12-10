@@ -113,14 +113,11 @@ export default function Home() {
       >
         How It Works
     </button>
-{visits !== null ? (
   <button
   className="fixed top-4 right-4 px-4 py-2 bg-purple-600 hover:bg-purple-700 text-white rounded-xl shadow-lg z-50"
 >
-  {visits === null ? "Loading..." : `Visits: ${visits}`}
+  {visits === null ? "Total Visits: Loading..." : `Total Visits: ${visits}`}
 </button>
-
-)}
 
 {showDownloadButton && (
   <button
@@ -479,7 +476,7 @@ Users should be cautious when relying on information provided by this chatbot an
       <p className="text-center text-gray-300">
         Download the Mindful Bite Android app for the best experience. Coming soon on IOS.
       </p>
-      <p className="text-center text-gray-300">To isntall for windows click top left button on screen</p>
+      <p className="text-center text-gray-300">To install for Windows click the top right button on screen</p>
     </div>
   </div>
 )}

@@ -1,12 +1,7 @@
-// app/api/counter/route.ts
 import { NextResponse } from "next/server";
-import { Redis } from "@upstash/redis";
+import Redis from "ioredis";
 
-// Initialize Redis using environment variables
-const redis = new Redis({
-  url: process.env.UPSTASH_REDIS_REST_URL!,
-  token: process.env.UPSTASH_REDIS_REST_TOKEN!,
-});
+const redis = new Redis(process.env.REDIS_URL); // set in Vercel Environment Variables
 
 export async function POST() {
   try {
@@ -18,3 +13,4 @@ export async function POST() {
     return NextResponse.json({ error: "Failed to increment counter" }, { status: 500 });
   }
 }
+console.log("Counter API called");
