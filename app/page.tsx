@@ -437,8 +437,9 @@ Users should be cautious when relying on information provided by this chatbot an
 
 
       <p className="text-center text-gray-300">
-        Download the Mindful Bite Android app for the best experience. Coming soon on IOS and Windows.
+        Download the Mindful Bite Android app for the best experience. Coming soon on IOS.
       </p>
+      <p className="text-center text-gray-300">To isntall for windows click top left button on screen</p>
     </div>
   </div>
 )}
