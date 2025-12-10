@@ -52,9 +52,23 @@ export default function Home() {
     setBackground(random);
   }, []);
   useEffect(() => {
-  fetch("/api/counter", { method: "POST" }) // increment
-    .then(res => res.json())
-    .then(data => setVisits(data.count));
+  let isMounted = true; // prevent state update if component unmounted
+  setVisits(null);       // reset to show loading
+
+  fetch("/api/counter", { method: "POST" }) // increment the counter
+    .then(async (res) => {
+      if (!res.ok) throw new Error("Failed to fetch");
+      const data = await res.json();
+      if (isMounted && data.count !== undefined) setVisits(data.count);
+    })
+    .catch((err) => {
+      console.error("Error fetching visits:", err);
+      if (isMounted) setVisits(0); // fallback
+    });
+
+  return () => {
+    isMounted = false;
+  };
 }, []);
 
   useEffect(() => {
@@ -101,18 +115,11 @@ export default function Home() {
     </button>
 {visits !== null ? (
   <button
-    className={`fixed top-4 right-4 px-4 py-2 bg-purple-600 hover:bg-purple-700 text-white rounded-xl shadow-lg z-50 ${
-      visits === null ? "jiggle" : ""
-    }`}
-  >
-    Total Visits: {visits}
-  </button>
-) : (
-  <button
-    className="fixed top-4 right-4 px-4 py-2 bg-purple-600 hover:bg-purple-700 text-white rounded-xl shadow-lg z-50 jiggle"
-  >
-    Total Visits: Loading...
-  </button>
+  className="fixed top-4 right-4 px-4 py-2 bg-purple-600 hover:bg-purple-700 text-white rounded-xl shadow-lg z-50"
+>
+  {visits === null ? "Loading..." : `Visits: ${visits}`}
+</button>
+
 )}
 
 {showDownloadButton && (
