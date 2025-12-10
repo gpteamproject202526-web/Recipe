@@ -13,6 +13,8 @@ export default function Home() {
   const [modalBackground, setModalBackground] = useState<string>("");
   const [showDownloadPopup, setShowDownloadPopup] = useState(false);
   const [showDownloadButton, setShowDownloadButton] = useState(false);
+  const [visits, setVisits] = useState<number | null>(null);
+
 
   /* TAG SYSTEM */
   const tagCategories = {
@@ -49,6 +51,12 @@ export default function Home() {
     const random = backgrounds[Math.floor(Math.random() * backgrounds.length)];
     setBackground(random);
   }, []);
+  useEffect(() => {
+  fetch("/api/counter", { method: "POST" }) // increment
+    .then(res => res.json())
+    .then(data => setVisits(data.count));
+}, []);
+
   useEffect(() => {
   const userAgent = navigator.userAgent || navigator.vendor || (window as any).opera;
 
@@ -91,6 +99,31 @@ export default function Home() {
       >
         How It Works
     </button>
+{visits !== null ? (
+  <button
+    className={`fixed top-4 right-4 px-4 py-2 bg-purple-600 hover:bg-purple-700 text-white rounded-xl shadow-lg z-50 ${
+      visits === null ? "jiggle" : ""
+    }`}
+  >
+    Total Visits: {visits}
+  </button>
+) : (
+  <button
+    className="fixed top-4 right-4 px-4 py-2 bg-purple-600 hover:bg-purple-700 text-white rounded-xl shadow-lg z-50 jiggle"
+  >
+    Total Visits: Loading...
+  </button>
+)}
+
+{showDownloadButton && (
+  <button
+    onClick={() => setShowDownloadPopup(true)}
+    className="fixed bottom-4 left-4 px-4 py-2 bg-purple-600 hover:bg-purple-700 text-white rounded-xl shadow-lg z-50"
+  >
+    Download the App
+  </button>
+)}
+
     {showDownloadButton && (
   <button
     onClick={() => setShowDownloadPopup(true)}
